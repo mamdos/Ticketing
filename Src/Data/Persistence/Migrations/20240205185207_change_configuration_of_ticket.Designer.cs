@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Data.Migrations
+namespace Data.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240205161556_add_identity_models")]
-    partial class add_identity_models
+    [Migration("20240205185207_change_configuration_of_ticket")]
+    partial class change_configuration_of_ticket
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,15 +51,19 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("AssigneeUserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AssigneeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("IssuerUserId")
+                    b.Property<string>("Description")
+                        .HasMaxLength(700)
+                        .HasColumnType("nvarchar(700)");
+
+                    b.Property<string>("IssuerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -71,7 +75,11 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AssigneeId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("IssuerId");
 
                     b.ToTable("Tickets");
                 });
@@ -276,13 +284,27 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entities.Ticket.Aggregate.Ticket", b =>
                 {
+                    b.HasOne("Data.Entities.User.Aggregate.User", "Assignee")
+                        .WithMany()
+                        .HasForeignKey("AssigneeId");
+
                     b.HasOne("Data.Entities.Category.Aggregate.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Data.Entities.User.Aggregate.User", "Issuer")
+                        .WithMany()
+                        .HasForeignKey("IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assignee");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Issuer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
