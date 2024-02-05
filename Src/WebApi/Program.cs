@@ -1,4 +1,5 @@
-using Data.IoC;
+using Data.Common.IoC;
+using Services.Common.IoC;
 using WebApi.Common.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDataLayer();
+builder.Services.AddServicesLayer();
 builder.Services.AddApiLayer(builder.Configuration);
 
 builder.Services.AddControllers();

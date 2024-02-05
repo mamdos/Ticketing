@@ -2,10 +2,10 @@
 
 public sealed class JwtSettings
 {
-    public string ValidIssuer { get; private set; } = null!;
-    public string ValidAudience { get; private set; } = null!;
-    public string Secret { get; private set; } = null!;
-    public int ExpireIn { get; private set; }
+    public string ValidIssuer { get; set; } = null!;
+    public string ValidAudience { get; set; } = null!;
+    public string Secret { get; set; } = null!;
+    public int ExpireIn { get; set; }
 
     public static string SectionName = "JwtSettings";
 }

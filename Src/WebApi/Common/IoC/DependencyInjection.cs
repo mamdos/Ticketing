@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 using WebApi.Common.Configurations;
 
@@ -24,8 +25,8 @@ public static class DependencyInjection
         .AddJwtBearer(options =>
         {
             options.SaveToken = true;
-            options.TokenValidationParameters =
-                new TokenValidationParameters()
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -34,6 +35,11 @@ public static class DependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
         });
+
+        services.AddAutoMapper(
+            Assembly.GetExecutingAssembly(),
+            Assembly.GetAssembly(typeof(Services.Common.IoC.DependencyInjection)),
+            Assembly.GetAssembly(typeof(Data.Common.IoC.DependencyInjection)));
 
         return services;
     }
