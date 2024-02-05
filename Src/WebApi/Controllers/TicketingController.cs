@@ -11,11 +11,11 @@ namespace WebApi.Controllers;
 [ApiController]
 [Authorize(Roles = UserRoles.IssuerUser)]
 [Route("api/[controller]")]
-public class TicketController : ControllerBase
+public class TicketingController : ControllerBase
 {
     private readonly ITicketManager _ticketManager;
 
-    public TicketController(ITicketManager ticketManager)
+    public TicketingController(ITicketManager ticketManager)
     {
         _ticketManager = ticketManager;
     }
