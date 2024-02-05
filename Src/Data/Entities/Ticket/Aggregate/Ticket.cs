@@ -1,7 +1,6 @@
 ﻿using Data.Common.Abstractions;
 using Data.Entities.Ticket.Dtos;
 using Data.Entities.Ticket.Policies;
-using System.Diagnostics.Tracing;
 
 namespace Data.Entities.Ticket.Aggregate;
 
