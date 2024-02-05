@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Abstractions\" />
+  </ItemGroup>
+
 </Project>
