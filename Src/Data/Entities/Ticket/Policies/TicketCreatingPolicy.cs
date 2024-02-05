@@ -4,7 +4,7 @@ using Data.Entities.Ticket.Dtos;
 
 namespace Data.Entities.Ticket.Policies;
 
-internal class TicketCreatingPolicy : BasePolicy<Aggregate.Ticket, CreateTicketDto>
+internal sealed class TicketCreatingPolicy : BasePolicy<Aggregate.Ticket, CreateTicketDto>
 {
     public TicketCreatingPolicy(in Aggregate.Ticket entity,in CreateTicketDto input) : base(entity, input)
     {
@@ -17,8 +17,7 @@ internal class TicketCreatingPolicy : BasePolicy<Aggregate.Ticket, CreateTicketD
 
     private void CheckInputsAreFilled()
     {
-        if (string.IsNullOrWhiteSpace(_input.Title) ||
-            string.IsNullOrWhiteSpace(_input.IssuerUserId))
-            throw new InvalidEntityStateException("all the input fileds must be filled with data");
+        if (string.IsNullOrWhiteSpace(_input.Title))
+            throw new InvalidEntityStateException("all the required input fileds must be filled with data");
     }
 }

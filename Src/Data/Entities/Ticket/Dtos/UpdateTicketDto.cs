@@ -2,8 +2,7 @@
 
 namespace Data.Entities.Ticket.Dtos;
 
-public record CreateTicketDto(
+public record UpdateTicketDto(
     string Title,
     string? Description,
-    User.Aggregate.User Issuer,
     Category.Aggregate.Category Category) : IDto;
