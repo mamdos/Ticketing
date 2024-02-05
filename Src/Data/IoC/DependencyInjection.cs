@@ -1,4 +1,5 @@
-﻿using Data.Persistence.DbContexts;
+﻿using Data.Entities.User.Aggregate;
+using Data.Persistence.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +8,7 @@ namespace Data.IoC;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDataServices(this IServiceCollection services)
+    public static IServiceCollection AddDataLayer(this IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>(
             DbContextOptionsGenerator,
@@ -18,6 +19,8 @@ public static class DependencyInjection
             ServiceLifetime.Transient
         );
 
+        services.AddIdentityCore<User>()
+            .AddEntityFrameworkStores<AppDbContext>();
 
         return services;
     }
