@@ -1,11 +1,13 @@
 ﻿using Data.Entities.Category.Aggregate;
 using Data.Entities.Ticket.Aggregate;
+using Data.Entities.User.Aggregate;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Data.Persistence.DbContexts;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<User>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     { }
