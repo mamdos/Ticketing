@@ -26,9 +26,9 @@ public class TicketManager : ITicketManager
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<Data.Entities.User.Aggregate.User> _userManager;
 
-    public TicketManager(AppDbContext context, IMapper mapper, UserManager<User> userManager)
+    public TicketManager(AppDbContext context, IMapper mapper, UserManager<Data.Entities.User.Aggregate.User> userManager)
     {
         _context = context;
         _mapper = mapper;
