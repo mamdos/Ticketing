@@ -8,7 +8,7 @@ using WebApi.Models;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Authorize(Roles = UserRoles.SupportUser)]
+[Authorize(Roles = UserRoles.TicketAdmin)]
 [Route("api/Admin/[controller]")]
 public class TicketManagementController : ControllerBase
 {

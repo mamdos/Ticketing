@@ -9,7 +9,7 @@ using WebApi.Models;
 namespace WebApi.Controllers;
 
 [ApiController]
-[Authorize(Roles = UserRoles.IssuerUser)]
+[Authorize(Roles = UserRoles.TicketUser)]
 [Route("api/[controller]")]
 public class TicketingController : ControllerBase
 {
@@ -36,6 +36,12 @@ public class TicketingController : ControllerBase
     [HttpPost("NewTicket")]
     public async Task<IActionResult> New([FromBody] CreateTicketRequestDto createTicketRequestDto)
     {
+        var currentUserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (currentUserId is null)
+            return BadRequest(ApiResponse.Fail(message: "user not found"));
+
+        createTicketRequestDto.IssuerId = currentUserId;
+
         var result = await _ticketManager.AddTicketAsync(createTicketRequestDto, HttpContext.RequestAborted);
 
         if (result.IsSucceed)
