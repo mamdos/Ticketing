@@ -2,4 +2,4 @@
 
 namespace Data.Entities.Category.Dtos;
 
-public record CategoryDto(int Id, string Name) : IDto;
+public record UpdateCategoryDto(string Name) : IDto;

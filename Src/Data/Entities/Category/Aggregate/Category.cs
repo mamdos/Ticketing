@@ -19,4 +19,12 @@ public class Category : BaseEntity<int>, IAggregateRoot
 
         return createdCategory;
     }
+
+    public void Update(UpdateCategoryDto updateCategoryDto)
+    {
+        var policy = new CategoryUpdatingPolicy(this, updateCategoryDto);
+        policy.CheckConstraints();
+
+        Name = updateCategoryDto.Name;
+    }
 }
