@@ -1,5 +1,6 @@
 ﻿using Data.Entities.User.Aggregate;
 using Data.Persistence.DbContexts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         );
 
         services.AddIdentityCore<User>()
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>();
 
         return services;
