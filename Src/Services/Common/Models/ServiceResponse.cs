@@ -34,4 +34,13 @@ public class ServiceResponse<TData> : ServiceResponse
             IsSucceed = true
         };
     }
+
+    public new static ServiceResponse<TData> Fail(string message)
+    {
+        return new ServiceResponse<TData>()
+        {
+            IsSucceed = false,
+            Message = message
+        };
+    }
 }
